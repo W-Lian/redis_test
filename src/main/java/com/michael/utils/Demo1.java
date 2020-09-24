@@ -2,6 +2,7 @@ package com.michael.utils;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisShardInfo;
+import redis.clients.jedis.params.Params;
 
 public class Demo1 {
 
@@ -14,7 +15,13 @@ public class Demo1 {
 		// 1. 设置IP地址和端口
 //        Jedis jedis = new Jedis("127.0.0.1",6379);
         // 2. 保存数据
+	    //"NX"：当key存在时才set值
         jedis.set("name3","michael3", "NX", "EX", 2);
+        System.out.println(jedis.get("name3"));
+        
+        //"XX"：当key不存在时才set值
+        jedis.set("name3","michael333", "XX", "EX", 2);
+        
         System.out.println(jedis.get("name3"));
         Thread.sleep(3000);
         // 3. 获取数据
